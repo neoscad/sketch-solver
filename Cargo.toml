@@ -1,0 +1,32 @@
+[package]
+name = "sketch-solver"
+description = "A deterministic 2D geometric constraint solver for CAD sketches: points, lines, arcs and circles, with degree-of-freedom, redundancy and conflict diagnosis, bit-identical on every platform including wasm32"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/neoscad/sketch-solver"
+homepage = "https://github.com/neoscad/sketch-solver"
+readme = "README.md"
+keywords = ["cad", "constraint", "solver", "sketch", "geometry"]
+categories = ["mathematics", "science", "graphics"]
+authors = ["The NeoSCAD contributors"]
+exclude = [".github/"]
+
+[lib]
+name = "sketch_solver"
+
+[dependencies]
+# Pure-Rust trigonometry, so the cosine of an angle constraint has the same
+# bits on aarch64, x86_64 and wasm32: the platform maths libraries differ
+# in the last place, which would move every coordinate downstream.
+libm = "0.2.16"
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+dbg_macro = "warn"
+todo = "warn"
