@@ -1,3 +1,9 @@
+# The crate at the root is what is published; `corpus` is a test-only
+# member, never published, that checks it against FreeCAD's and
+# SolveSpace's test suites (corpus/README.md).
+[workspace]
+members = [".", "corpus"]
+
 [package]
 name = "sketch-solver"
 description = "A deterministic 2D geometric constraint solver for CAD sketches: points, lines, arcs and circles, with degree-of-freedom, redundancy and conflict diagnosis, bit-identical on every platform including wasm32"
@@ -11,7 +17,10 @@ readme = "README.md"
 keywords = ["cad", "constraint", "solver", "sketch", "geometry"]
 categories = ["mathematics", "science", "graphics"]
 authors = ["The NeoSCAD contributors"]
-exclude = [".github/"]
+# The validation corpus (corpus/) is test data derived from GPL-3.0 and
+# LGPL-2.1 sources and must never ship in this permissively licensed
+# package (corpus/README.md); `cargo package --list` shows what does.
+exclude = [".github/", "corpus/"]
 
 [lib]
 name = "sketch_solver"

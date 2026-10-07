@@ -1,0 +1,25 @@
+[package]
+name = "sketch-solver-corpus"
+description = "The sketch-solver validation corpus: test cases translated from FreeCAD's and SolveSpace's test suites, solved and checked (README.md)"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.88"
+# Test data derived from SolveSpace (GPL-3.0-or-later) and FreeCAD
+# (LGPL-2.1-or-later), so it is never published and is not part of the
+# MIT OR Apache-2.0 crate it tests. Each data file keeps its own notice;
+# README.md, "Licensing", says which covers what.
+license = "GPL-3.0-or-later"
+publish = false
+
+[dev-dependencies]
+serde_json = "1"
+sketch-solver = { path = ".." }
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+dbg_macro = "warn"
+todo = "warn"

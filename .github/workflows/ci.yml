@@ -24,9 +24,21 @@ jobs:
         with:
           persist-credentials: false
       - run: rustup toolchain install stable --profile minimal --component clippy,rustfmt
-      - run: cargo fmt --check
-      - run: cargo clippy --all-targets
-      - run: cargo test
+      # --workspace takes in the corpus member (corpus/), which a plain
+      # `cargo test` at the root would skip: the root package is the
+      # default member.
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets
+      - run: cargo test --workspace
+      # The published package must hold only the permissively licensed
+      # crate, never the GPL/LGPL-derived corpus.
+      - if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          if cargo package --list --allow-dirty | grep -q '^corpus/'; then
+            echo "corpus/ would be published" >&2
+            exit 1
+          fi
 
   msrv:
     runs-on: ubuntu-latest

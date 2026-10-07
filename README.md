@@ -9,6 +9,13 @@ the free degrees of freedom and which coordinates can still move, the
 constraints that are redundant, the ones that conflict, and where a
 solution flipped away from the drawing.
 
+**Licensing of this repository.** The crate, which is everything that is
+published to crates.io, is `MIT OR Apache-2.0`. The
+[`corpus/`](https://github.com/neoscad/sketch-solver/tree/main/corpus)
+directory holds test data derived from SolveSpace (GPL-3.0-or-later) and
+FreeCAD (LGPL-2.1-or-later), under those licences; it is never
+published and is not part of the crate.
+
 It was written for [NeoSCAD](https://neoscad.org)'s constrained sketches
 and has no dependency on NeoSCAD: its API is plain data keyed by entity
 and constraint ids, which a host maps to its own names and source
@@ -97,13 +104,14 @@ for `wasm32-unknown-unknown` without features or glue.
 
 ## Validation
 
-In the [NeoSCAD repository](https://github.com/neoscad/neoscad)
-(`crates/sketch-corpus`, not in this package), the solver is
-tested against cases translated from FreeCAD's Sketcher tests and
-SolveSpace's constraint regression tests, and compared with SolveSpace's
-solver on generated sketches by a differential script. Those test files
-are derived from GPL and LGPL projects and are kept out of this
-permissively licensed package.
+In this repository's
+[`corpus/`](https://github.com/neoscad/sketch-solver/tree/main/corpus)
+(not in this package), the solver is tested against cases translated
+from FreeCAD's Sketcher tests and SolveSpace's constraint regression
+tests, and compared with SolveSpace's solver on generated sketches by a
+differential script. `cargo test --workspace` runs the corpus; CI runs
+it on every platform. Those test files are derived from GPL and LGPL
+projects and are kept out of this permissively licensed package.
 
 ## Licence
 
